@@ -1,17 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gsh199449
-  Date: 2016/10/11
-  Time: 下午6:49
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>数据更新</title>
-    <%@include file="../../commons/header.jsp" %>
+    <%@include file="../../commons/common.jsp" %>
     <script type="text/javascript">
         $(function () {
             var validate = $("#updateForm").validate({
@@ -49,27 +42,32 @@
         });
     </script>
 </head>
-<body>
-<%@include file="../../commons/head.jsp" %>
-<div class="container">
-    <form id="updateForm">
-        <div class="form-group">
-            <label for="spiderInfoIdUpdateBy">spiderInfoIdUpdateBy</label>
-            <input type="text" class="form-control" id="spiderInfoIdUpdateBy" name="spiderInfoIdUpdateBy"
-                   placeholder="待更新的爬虫模板ID"
-                   value="${spiderInfoIdUpdateBy}">
-        </div>
-        <fieldset class="form-group">
-            <label for="spiderInfoJson">Json爬虫模板</label>
+<body class="fixed-sidebar full-height-layout gray-bg  pace-done __web-inspector-hide-shortcut__">
+<%@include file="../../commons/leftnav.jsp" %>
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row J_mainContent">
+        <div class="container">
+            <form id="updateForm">
+                <div class="form-group">
+                    <label for="spiderInfoIdUpdateBy">spiderInfoIdUpdateBy</label>
+                    <input type="text" class="form-control" id="spiderInfoIdUpdateBy" name="spiderInfoIdUpdateBy"
+                           placeholder="待更新的爬虫模板ID"
+                           value="${spiderInfoIdUpdateBy}">
+                </div>
+                <fieldset class="form-group">
+                    <label for="spiderInfoJson">Json爬虫模板</label>
             <textarea class="form-control" id="spiderInfoJson" rows="10"
                       name="spiderInfoJson">${spiderInfoJson}</textarea>
-        </fieldset>
-        <div class="form-group">
-            <label for="callbackUrl">回调地址</label>
-            <input type="text" class="form-control" id="callbackUrl" name="callbackUrl" placeholder="回调地址">
+                </fieldset>
+                <div class="form-group">
+                    <label for="callbackUrl">回调地址</label>
+                    <input type="text" class="form-control" id="callbackUrl" name="callbackUrl" placeholder="回调地址">
+                </div>
+                <button type="submit" class="btn btn-danger">提交</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-danger">提交</button>
-    </form>
+    </div>
 </div>
 </body>
 </html>

@@ -1,22 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gsh199449
-  Date: 2016/12/26
-  Time: 下午8:33
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>${webpage.title}</title>
-    <%@include file="/pages/commons/header.jsp" %>
+    <%@include file="../../commons/common.jsp" %>
 </head>
-<body>
-<%@include file="/pages/commons/head.jsp" %>
-<div class="container">
-    <div class="row">
+<body class="fixed-sidebar full-height-layout gray-bg  pace-done __web-inspector-hide-shortcut__">
+<%@include file="../../commons/leftnav.jsp" %>
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row J_mainContent">
         <div class="col-sm-9">
             <h2 class="display-1">${webpage.title}</h2>
             <p>
@@ -143,7 +137,9 @@
                 </c:forEach>
             </ul>
         </div>
+
     </div>
 </div>
+
 </body>
 </html>

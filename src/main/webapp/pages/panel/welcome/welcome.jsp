@@ -1,22 +1,21 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gaoshen
-  Date: 16/5/4
-  Time: 下午3:28
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>数据采集平台</title>
-    <%@include file="../../commons/header.jsp" %>
+    <title>数据存储中心控制台</title>
+    <%@include file="../../commons/common.jsp" %>
 </head>
-<body>
-<%@include file="../../commons/head.jsp" %>
-<div class="container">
-    <div class="jumbotron">
-        <h1 class="display-2">欢迎来到数据采集平台</h1>
-        <p class="lead">请选择上方导航栏中的功能</p>
+<body class="fixed-sidebar full-height-layout gray-bg  pace-done __web-inspector-hide-shortcut__">
+<%@include file="../../commons/leftnav.jsp" %>
+
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row J_mainContent">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-2">欢迎来到数据采集平台</h1>
+            </div>
+        </div>
     </div>
 </div>
 </body>

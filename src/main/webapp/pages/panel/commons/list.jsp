@@ -1,17 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: gaoshen
-  Date: 16/4/27
-  Time: 下午5:43
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>资讯列表</title>
-    <%@include file="../../commons/header.jsp" %>
+    <title>搜索</title>
+    <%@include file="../../commons/common.jsp" %>
     <script type="text/javascript">
         $(function () {
             var validate = $("#webpageForm").validate({
@@ -64,81 +57,87 @@
         }
     </script>
 </head>
-<body>
-<%@include file="../../commons/head.jsp" %>
-<div class="container">
-    <form class="form-inline" id="webpageForm" action="${pageContext.request.contextPath}/panel/commons/list">
-        <div class="form-group">
-            <label for="query">关键词:</label>
-            <input class="form-control" id="query" name="query" value="${query}">
+<body class="fixed-sidebar full-height-layout gray-bg  pace-done __web-inspector-hide-shortcut__">
+<%@include file="../../commons/leftnav.jsp" %>
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row J_mainContent">
+        <div class="container">
+            <form class="form-inline" id="webpageForm" action="${pageContext.request.contextPath}/panel/commons/list">
+                <div class="form-group">
+                    <label for="query">关键词:</label>
+                    <input class="form-control" id="query" name="query" value="${query}">
+                </div>
+                <div class="form-group">
+                    <label for="page">页码:</label>
+                    <input class="form-control" type="number" id="page" name="page" value="${page}">
+                </div>
+                <div class="form-group">
+                    <label for="domain">域名:</label>
+                    <input class="form-control" id="domain" name="domain" value="${domain}">
+                </div>
+                <button type="submit" class="btn btn-primary" id="priceSubmit">搜索</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="page">页码:</label>
-            <input class="form-control" type="number" id="page" name="page" value="${page}">
+        <div class="container">
+            <div class="row">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>标题</th>
+                        <th>网站</th>
+                        <th>时间</th>
+                        <th>查看</th>
+                        <th>转到</th>
+                        <th>删除</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${resultBundle}" var="webpage" varStatus="index">
+                        <tr>
+                            <th scope="row">${index.count}</th>
+                            <td>${webpage.title}</td>
+                            <td>${webpage.domain}</td>
+                            <td><fmt:formatDate value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+                            <td>
+                                <button onclick="showDetail('${webpage.id}')" class="btn btn-info">Show</button>
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/panel/commons/showWebpageById?id=${webpage.id}"
+                                   class="btn btn-primary" target="_blank">Go</a>
+                            </td>
+                            <td>
+                                <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/webpage/deleteById',{id:'${webpage.id}'})"
+                                        class="btn btn-danger">
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <nav>
+                    <ul class="pager">
+                        <c:if test="${page == 1}">
+                            <li class="pager-prev disabled"><a href="#">上一页</a></li>
+                        </c:if>
+                        <c:if test="${page > 1}">
+                            <li class="pager-prev"><a href="?query=${query}&page=${page-1}&domain=${domain}">上一页</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${resultBundle.size() < 10}">
+                            <li class="pager-next disabled"><a href="#">下一页</a></li>
+                        </c:if>
+                        <c:if test="${resultBundle.size() == 10}">
+                            <li class="pager-next"><a href="?query=${query}&page=${page+1}&domain=${domain}">下一页</a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="domain">域名:</label>
-            <input class="form-control" id="domain" name="domain" value="${domain}">
-        </div>
-        <button type="submit" class="btn btn-primary" id="priceSubmit">搜索</button>
-    </form>
-</div>
-<div class="container">
-    <div class="row">
-        <table class="table table-hover">
-            <thead class="thead-inverse">
-            <tr>
-                <th>#</th>
-                <th>标题</th>
-                <th>网站</th>
-                <th>时间</th>
-                <th>查看</th>
-                <th>转到</th>
-                <th>删除</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${resultBundle}" var="webpage" varStatus="index">
-                <tr>
-                    <th scope="row">${index.count}</th>
-                    <td>${webpage.title}</td>
-                    <td>${webpage.domain}</td>
-                    <td><fmt:formatDate value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-                    <td>
-                        <button onclick="showDetail('${webpage.id}')" class="btn btn-info">Show</button>
-                    </td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/panel/commons/showWebpageById?id=${webpage.id}"
-                           class="btn btn-primary" target="_blank">Go</a>
-                    </td>
-                    <td>
-                        <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/webpage/deleteById',{id:'${webpage.id}'})"
-                                class="btn btn-danger">
-                            删除
-                        </button>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <nav>
-            <ul class="pager">
-                <c:if test="${page == 1}">
-                    <li class="pager-prev disabled"><a href="#">上一页</a></li>
-                </c:if>
-                <c:if test="${page > 1}">
-                    <li class="pager-prev"><a href="?query=${query}&page=${page-1}&domain=${domain}">上一页</a></li>
-                </c:if>
-                <c:if test="${resultBundle.size() < 10}">
-                    <li class="pager-next disabled"><a href="#">下一页</a></li>
-                </c:if>
-                <c:if test="${resultBundle.size() == 10}">
-                    <li class="pager-next"><a href="?query=${query}&page=${page+1}&domain=${domain}">下一页</a></li>
-                </c:if>
-            </ul>
-        </nav>
     </div>
 </div>
 </body>
